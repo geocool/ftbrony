@@ -19,7 +19,6 @@
 #include "sans_14_render_bin.h"
 #include "sans_16_kerning_bin.h"
 #include "sans_16_render_bin.h"
-#include "banner_bin.h"
 
 /* TODO: add support for non-ASCII characters */
 
@@ -675,21 +674,24 @@ console_render(void)
   font_t *font;
 
   /* clear all screens */
-  u8 bluish[] = { 0, 0, 127 };
-  clear_screen(GFX_TOP,    GFX_LEFT,  bluish);
-  gfxDrawSprite(GFX_BOTTOM, GFX_LEFT, (u8*)banner_bin, 240, 320, 0, 0);
+  u8 black_color[] = { 0, 0, 0 };
+  clear_screen(GFX_TOP,    GFX_LEFT,  black_color);
+  clear_screen(GFX_BOTTOM,    GFX_LEFT,  black_color);
 
   /* look up font for status bar and draw status bar */
   font = find_font("sans", 10);
-  if(font != NULL)
-    draw_text(GFX_TOP, GFX_LEFT,  font, status, 4, 4);
+  if(font != NULL) {
+    draw_text(GFX_BOTTOM, GFX_LEFT,  font, status, 20, 4);
+    draw_text(GFX_BOTTOM, GFX_LEFT,  font, STATUS_STRING, 20, 220);
+  }
   else
     debug("%s: couldn't find 'sans 10pt'\n", __func__);
+
 
   /* look up font for console and draw console */
   font = find_font("sans", 8);
   if(font != NULL)
-    draw_text(GFX_TOP, GFX_LEFT,  font, buffer, 4, 20);
+    draw_text(GFX_TOP, GFX_LEFT,  font, buffer, 20, 5);
   else
     debug("%s: couldn't find 'sans 8pt'\n", __func__);
 

@@ -1231,7 +1231,7 @@ ftp_init(void)
 
   /* print server address */
 #ifdef _3DS
-  console_set_status(STATUS_STRING " IP:%s Port:%u",
+  console_set_status("3DS IP: %s Port: %u",
                      inet_ntoa(serv_addr.sin_addr),
                      ntohs(serv_addr.sin_port));
 #else
